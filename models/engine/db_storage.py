@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from models.amenity import Amenity
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
@@ -74,3 +75,26 @@ class DBStorage:
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+    
+    def get(self, cls, id):
+        """Returns the object based on the class and its ID"""
+        if isinstance(cls, str) and isinstance(id, str) and cls in classes:
+            cls = classes[cls]
+            result = self.__session.query(cls).filter(cls.id == id).first()
+            return result
+        else:
+            return None
+
+    def count(self, cls=None):
+        """Returns the number of objects matching the class."""
+        total = 0
+        if cls is None:
+            classes_to_query = classes.values()
+        elif isinstance(cls, str) and cls in classes:
+            classes_to_query = [classes[cls]]
+        else:
+            return total
+
+        for cls in classes_to_query:
+            total += self.__session.query(cls).count()
+        return total
