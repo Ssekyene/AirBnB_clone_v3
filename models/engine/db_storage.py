@@ -42,15 +42,22 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """query on the current database session"""
-        new_dict = {}
-        for clss in classes:
-            if cls is None or cls is classes[clss] or cls is clss:
-                objs = self.__session.query(classes[clss]).all()
-                for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    new_dict[key] = obj
-        return (new_dict)
+        """Query and return all objects by class/generally
+        Return: dictionary (<class-name>.<object-id>: <obj>)
+        """
+        obj_dict = {}
+
+        if cls and cls in classes.values():
+            for row in self.__session.query(cls).all():
+                # populate dict with objects from storage
+                obj_dict.update({'{}.{}'.
+                                format(type(row).__name__, row.id,): row})
+        else:
+            for clss in classes.values():
+                for row in self.__session.query(clss):
+                    obj_dict.update({'{}.{}'.
+                                    format(type(row).__name__, row.id,): row})
+        return obj_dict
 
     def new(self, obj):
         """add the object to the current database session"""
@@ -78,8 +85,7 @@ class DBStorage:
     
     def get(self, cls, id):
         """Returns the object based on the class and its ID"""
-        if isinstance(cls, str) and isinstance(id, str) and cls in classes:
-            cls = classes[cls]
+        if cls and isinstance(id, str) and cls in classes.values():
             result = self.__session.query(cls).filter(cls.id == id).first()
             return result
         else:
@@ -90,8 +96,8 @@ class DBStorage:
         total = 0
         if cls is None:
             classes_to_query = classes.values()
-        elif isinstance(cls, str) and cls in classes:
-            classes_to_query = [classes[cls]]
+        elif cls in classes.values():
+            classes_to_query = [cls]
         else:
             return total
 
