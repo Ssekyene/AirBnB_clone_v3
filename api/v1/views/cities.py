@@ -6,6 +6,7 @@ from flask import Flask, jsonify, abort, request
 from models import storage
 from api.v1.views import app_views
 from models.city import City
+from models.state import State
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
@@ -14,7 +15,7 @@ def get_city_by_state(state_id):
     '''
         retrieve list of all cities in state, json form
     '''
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     city_list = [city.to_dict() for city in state.cities]
@@ -26,7 +27,7 @@ def get_city_id(city_id):
     '''
         return city and its id using GET
     '''
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     if city is None:
         abort(404)
     return jsonify(city.to_dict()), 200
@@ -37,7 +38,7 @@ def delete_city(city_id):
     '''
         DELETE city obj given city_id
     '''
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     if city is None:
         abort(404)
     city.delete()
@@ -57,7 +58,7 @@ def create_city(state_id):
         return jsonify({"error": "Missing name"}), 400
     else:
         obj_data = request.get_json()
-        state = storage.get("State", state_id)
+        state = storage.get(State, state_id)
         if state is None:
             abort(404)
         obj_data['state_id'] = state.id
@@ -74,7 +75,7 @@ def update_city(city_id):
     if not request.get_json():
         return jsonify({"error": "Not a JSON"}), 400
 
-    obj = storage.get("City", city_id)
+    obj = storage.get(City, city_id)
     if obj is None:
         abort(404)
     obj_data = request.get_json()
