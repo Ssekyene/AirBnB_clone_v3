@@ -15,7 +15,7 @@ cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
 @app.teardown_appcontext
 def tear_down(error=None):
-    """calls the  calls storage.close()"""
+    """calls storage.close()"""
     storage.close()
 
 
