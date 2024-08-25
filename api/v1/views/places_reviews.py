@@ -6,6 +6,8 @@ from flask import Flask, jsonify, abort, request
 from models import storage
 from api.v1.views import app_views
 from models.review import Review
+from models.place import Place
+from models.user import User
 
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET'],
@@ -14,10 +16,10 @@ def get_review_by_place(place_id):
     '''
         return reviews by place, json form
     '''
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if place is None:
         abort(404)
-    review_list = [r.to_dict() for r in place.reviews]
+    review_list = [review.to_dict() for review in place.reviews]
     return jsonify(review_list), 200
 
 
@@ -26,7 +28,7 @@ def get_review_id(review_id):
     '''
         return review given its id using GET
     '''
-    review = storage.get("Review", review_id)
+    review = storage.get(Review, review_id)
     if review is None:
         abort(404)
     return jsonify(review.to_dict()), 200
@@ -38,7 +40,7 @@ def delete_review(review_id):
     '''
         delete review obj given review_id
     '''
-    review = storage.get("Review", review_id)
+    review = storage.get(Review, review_id)
     if review is None:
         abort(404)
     review.delete()
@@ -52,13 +54,13 @@ def create_review(place_id):
     '''
         create new review obj through place association using POST
     '''
-    if storage.get("Place", place_id) is None:
+    if storage.get(Place, place_id) is None:
         abort(404)
     elif not request.get_json():
         return jsonify({"error": "Not a JSON"}), 400
     elif "user_id" not in request.get_json():
         return jsonify({"error": "Missing user_id"}), 400
-    elif storage.get("User", request.get_json()["user_id"]) is None:
+    elif storage.get(User, request.get_json()["user_id"]) is None:
         abort(404)
     elif "text" not in request.get_json():
         return jsonify({"error": "Missing text"}), 400
@@ -75,7 +77,7 @@ def update_review(review_id):
     '''
         update review city object using PUT
     '''
-    obj = storage.get("Review", review_id)
+    obj = storage.get(Review, review_id)
     if obj is None:
         abort(404)
     elif not request.get_json():
