@@ -1,4 +1,5 @@
 # AirBnB clone - RESTful API
+![snapshot](./snapshot.PNG)
 The project uses a [REST API](https://www.restapitutorial.com/) to perform the CRUD operations from both **DBStorage** (MySQL) and **FileStorage** (file.json)
 REST API is a software architectural style for Backend.
 
