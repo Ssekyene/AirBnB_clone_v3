@@ -1,4 +1,21 @@
-# AirBnB Clone - The Console
+# AirBnB clone - RESTful API
+The project uses a [REST API](https://www.restapitutorial.com/) to perform the CRUD operations from both **DBStorage** (MySQL) and **FileStorage** (file.json)
+REST API is a software architectural style for Backend.
+
+**REST = “REpresentational State Transfer”. API = Application Programming Interface**
+
+Its purpose is to induce performance, scalability, simplicity, modifiability, visibility, portability, and reliability.
+
+REST API is **Resource-based**, a resource is an object and can be access by a URI. An object is “displayed”/transferred via a **representation** (typically JSON). HTTP methods will be actions on a resource.
+
+Example:
+- Resource: Person (John)
+- Service: contact information (GET)
+- Representation:
+    - first_name, last_name, date_of_birth
+    - JSON format
+
+## AirBnB Clone - The Console
 The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
 
 #### Functionalities of this command interpreter:
@@ -14,7 +31,7 @@ The console is the first segment of the AirBnB project at Holberton School that 
 * [File Descriptions](#file-descriptions)
 * [Usage](#usage)
 * [Examples of use](#examples-of-use)
-* [API](#api)
+* [API usage](#api-usage)
 * [Bugs](#bugs)
 * [Authors](#authors)
 * [License](#license)
@@ -151,22 +168,11 @@ EOF  all  create  destroy  help  quit  show  update
 (hbnb) quit
 ```
 
-## API
-The project uses a [REST API](https://www.restapitutorial.com/) to perform the CRUD operations from both **DBStorage** (MySQL) and **FileStorage** (file.json)
-REST API is a software architectural style for Backend.
-
-**REST = “REpresentational State Transfer”. API = Application Programming Interface**
-
-Its purpose is to induce performance, scalability, simplicity, modifiability, visibility, portability, and reliability.
-
-REST API is **Resource-based**, a resource is an object and can be access by a URI. An object is “displayed”/transferred via a **representation** (typically JSON). HTTP methods will be actions on a resource.
-
-Example:
-- Resource: Person (John)
-- Service: contact information (GET)
-- Representation:
-    - first_name, last_name, date_of_birth
-    - JSON format
+## API usage
+### Install Flask
+```
+$ pip3 install Flask
+```
 
 Run the flask application open one Terminal as follows:
 
