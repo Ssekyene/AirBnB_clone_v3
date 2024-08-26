@@ -14,6 +14,7 @@ The console is the first segment of the AirBnB project at Holberton School that 
 * [File Descriptions](#file-descriptions)
 * [Usage](#usage)
 * [Examples of use](#examples-of-use)
+* [API](#api)
 * [Bugs](#bugs)
 * [Authors](#authors)
 * [License](#license)
@@ -150,6 +151,58 @@ EOF  all  create  destroy  help  quit  show  update
 (hbnb) quit
 ```
 
+## API
+The project uses a [REST API](https://www.restapitutorial.com/) to perform the CRUD operations from both **DBStorage** (MySQL) and **FileStorage** (file.json)
+REST API is a software architectural style for Backend.
+
+**REST = “REpresentational State Transfer”. API = Application Programming Interface**
+
+Its purpose is to induce performance, scalability, simplicity, modifiability, visibility, portability, and reliability.
+
+REST API is **Resource-based**, a resource is an object and can be access by a URI. An object is “displayed”/transferred via a **representation** (typically JSON). HTTP methods will be actions on a resource.
+
+Example:
+- Resource: Person (John)
+- Service: contact information (GET)
+- Representation:
+    - first_name, last_name, date_of_birth
+    - JSON format
+
+Run the flask application open one Terminal as follows:
+
+For DBStorage:
+```
+guillaume@ubuntu:~/AirBnB_clone_v3$ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db HBNB_API_HOST=0.0.0.0 HBNB_API_PORT=5000 python3 -m api.v1.app
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+...
+```
+For FileStorage:
+```
+guillaume@ubuntu:~/AirBnB_clone_v3$ python3 -m api.v1.app
+```
+
+In another Terminal you may run the CRUD operations as follows:
+
+#### Read:
+```
+curl -X GET http://0.0.0.0:5000/api/v1/states/
+```
+
+#### Create:
+```
+curl -X POST http://0.0.0.0:5000/api/v1/states/ -H "Content-Type: application/json" -d '{"name": "California"}' -vvv
+```
+
+#### Update:
+```
+curl -X PUT http://0.0.0.0:5000/api/v1/states/feadaa73-9e4b-4514-905b-8253f36b46f6 -H "Content-Type: application/json" -d '{"name": "California is so cool"}'
+```
+
+#### Delete:
+```
+curl -X DELETE http://0.0.0.0:5000/api/v1/states/feadaa73-9e4b-4514-905b-8253f36b46f6
+```
+
 ## Bugs
 No known bugs at this time. 
 
@@ -159,5 +212,19 @@ No known bugs at this time.
 - Ssekyene Robert - [Github](https://github.com/Ssekyene) / [Twitter](https://x.com/robkj256)
 
 Third part of Airbnb: Ssekyene Robert
+## References
+- [Learn REST: A RESTful Tutorial](https://www.restapitutorial.com/)
+- [Designing a RESTful API with Python and Flask](https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask)
+- [HTTP access control (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+- [Flask cheatsheet](https://drive.google.com/drive/folders/1fxNDEpXSWRBQQAWVtK4SyooU_ZiGguo4)
+- [What are Flask Blueprints, exactly?](https://stackoverflow.com/questions/24420857/what-are-flask-blueprints-exactly)
+- [Flask](https://palletsprojects.com/projects/flask/)
+- [Modular Applications with Blueprints](https://flask.palletsprojects.com/en/1.1.x/blueprints/)
+- [Flask tests](https://flask.palletsprojects.com/en/1.1.x/testing/)
+- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/)
+- [unittest module](https://docs.python.org/3.4/library/unittest.html#module-unittest)
+- [ 34 brilliantly designed 404 error pages](https://www.creativebloq.com/web-design/best-404-pages-812505)
+
+
 ## License
 Public Domain. No copy write protection. 
