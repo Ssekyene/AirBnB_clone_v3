@@ -36,6 +36,7 @@ The console is the first segment of the AirBnB project at Holberton School that 
 * [Bugs](#bugs)
 * [Authors](#authors)
 * [License](#license)
+* [References](#references)
 
 ## Environment
 This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.4.3)
@@ -219,6 +220,7 @@ No known bugs at this time.
 - Ssekyene Robert - [Github](https://github.com/Ssekyene) / [Twitter](https://x.com/robkj256)
 
 Third part of Airbnb: Ssekyene Robert
+
 ## References
 - [Learn REST: A RESTful Tutorial](https://www.restapitutorial.com/)
 - [Designing a RESTful API with Python and Flask](https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask)
